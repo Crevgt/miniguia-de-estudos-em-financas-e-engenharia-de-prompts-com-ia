@@ -1,4 +1,15 @@
-# 📚 Miniguia de Estudos em Finanças Introdutórias com NotebookLM
+# 📚 Miniguia de Estudos e Engenharia de Prompts com IA
+
+Este repositório reúne atividades práticas de aprendizagem ativa com Inteligência Artificial, utilizando ferramentas como NotebookLM, engenharia de prompts e análise estruturada de informações.
+
+O projeto está dividido em dois desafios práticos:
+
+* **Desafio 1:** Miniguia de Estudos em Finanças Introdutórias;
+* **Desafio 2:** Extraindo Insights do Feedback de Clientes Bancários.
+
+---
+
+# 💰 Desafio 1 — Miniguia de Estudos em Finanças Introdutórias
 
 ## 🎯 Contexto e Objetivos
 
@@ -8,12 +19,12 @@ A proposta busca utilizar a IA não apenas para obter respostas prontas, mas com
 
 ### Objetivos principais
 
-- Entender os fundamentos do orçamento doméstico;
-- Diferenciar poupança de investimento;
-- Compreender crédito, juros e endividamento;
-- Entender os impactos da inflação no poder de compra;
-- Explorar práticas internacionais de alfabetização financeira;
-- Desenvolver prompts reutilizáveis para futuras revisões.
+* Entender os fundamentos do orçamento doméstico;
+* Diferenciar poupança de investimento;
+* Compreender crédito, juros e endividamento;
+* Entender os impactos da inflação no poder de compra;
+* Explorar práticas internacionais de alfabetização financeira;
+* Desenvolver prompts reutilizáveis para futuras revisões.
 
 ---
 
@@ -21,24 +32,24 @@ A proposta busca utilizar a IA não apenas para obter respostas prontas, mas com
 
 Foram selecionadas cinco fontes abertas e confiáveis, priorizando instituições oficiais e materiais educacionais relacionados à educação financeira e à alfabetização financeira.
 
-| Fonte | Tipo | Link |
-|-------|------|------|
-| Caderno de Educação Financeira – Banco Central | PDF/Página | [Banco Central](https://www.bcb.gov.br/cidadaniafinanceira) |
-| Guia de Planejamento Financeiro – CVM | PDF | [Guia CVM](https://www.gov.br/investidor/pt-br/educacional/publicacoes-educacionais/guias/guia-de-planejamento-financeiro/guia-planejamento-financeiro.pdf) |
-| TOP Planejamento Financeiro Pessoal – CVM | Página | [CVM](https://www.gov.br/cvm/pt-br/assuntos/noticias/2025/cvm-lanca-2a-edicao-do-livro-top-planejamento-financeiro-pessoal) |
-| Entendendo a Inflação – IBGE | Página | [IBGE](https://educa.ibge.gov.br/jovens/materias-especiais/23189-entendendo-a-inflacao.html) |
-| OECD/INFE 2023 International Survey of Adult Financial Literacy | PDF | [OECD Report](https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/12/oecd-infe-2023-international-survey-of-adult-financial-literacy_8ce94e2c/56003a32-en.pdf) |
+| Fonte                                                           | Tipo       | Link                                                                                                                                     |
+| --------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Caderno de Educação Financeira – Banco Central                  | PDF/Página | [Banco Central](https://www.bcb.gov.br/cidadaniafinanceira)                                                                   |
+| Guia de Planejamento Financeiro – CVM                           | PDF        | [Guia CVM](https://www.gov.br/investidor/pt-br/educacional/publicacoes-educacionais/guias/guia-de-planejamento-financeiro/guia-planejamento-financeiro.pdf)       |
+| TOP Planejamento Financeiro Pessoal – CVM                       | Página     | [CVM](https://www.gov.br/cvm/pt-br/assuntos/noticias/2025/cvm-lanca-2a-edicao-do-livro-top-planejamento-financeiro-pessoal)   |
+| Entendendo a Inflação – IBGE                                    | Página     | [IBGE](https://educa.ibge.gov.br/jovens/materias-especiais/23189-entendendo-a-inflacao.html)                                  |
+| OECD/INFE 2023 International Survey of Adult Financial Literacy | PDF        | [OECD Report](https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/12/oecd-infe-2023-international-survey-of-adult-financial-literacy_8ce94e2c/56003a32-en.pdf) |
 
 ### Critérios de seleção
 
 As fontes foram escolhidas considerando:
 
-- Confiabilidade das instituições responsáveis;
-- Disponibilidade pública e gratuita;
-- Relação direta com o tema estudado;
-- Conteúdo adequado para estudantes iniciantes;
-- Diversidade de perspectivas sobre educação financeira;
-- Possibilidade de utilização no NotebookLM.
+* Confiabilidade das instituições responsáveis;
+* Disponibilidade pública e gratuita;
+* Relação direta com o tema estudado;
+* Conteúdo adequado para estudantes iniciantes;
+* Diversidade de perspectivas sobre educação financeira;
+* Possibilidade de utilização no NotebookLM.
 
 ---
 
@@ -48,27 +59,27 @@ As perguntas foram elaboradas para explorar diferentes níveis de aprendizagem.
 
 ### Compreensão
 
-- Quais são os passos para elaborar um orçamento pessoal?
-- Qual é a diferença entre receita e despesa?
-- Como os juros influenciam empréstimos e investimentos?
+* Quais são os passos para elaborar um orçamento pessoal?
+* Qual é a diferença entre receita e despesa?
+* Como os juros influenciam empréstimos e investimentos?
 
 ### Comparação
 
-- Explique a diferença entre poupança e investimento com exemplos práticos.
-- Compare orçamento pessoal e planejamento financeiro.
-- Quais são as diferenças entre as abordagens brasileiras e internacionais sobre alfabetização financeira?
+* Explique a diferença entre poupança e investimento com exemplos práticos.
+* Compare orçamento pessoal e planejamento financeiro.
+* Quais são as diferenças entre as abordagens brasileiras e internacionais sobre alfabetização financeira?
 
 ### Análise
 
-- Como a falta de planejamento financeiro pode contribuir para o endividamento?
-- Como a inflação interfere no poder de compra?
-- Quais comportamentos financeiros diferenciam países segundo a OECD?
+* Como a falta de planejamento financeiro pode contribuir para o endividamento?
+* Como a inflação interfere no poder de compra?
+* Quais comportamentos financeiros diferenciam países segundo a OECD?
 
 ### Aplicação prática
 
-- Como uma pessoa pode organizar suas finanças mensais?
-- Crie um exemplo de orçamento doméstico para uma pessoa que deseja reduzir gastos.
-- Como os conceitos estudados podem ajudar uma pessoa a evitar o endividamento?
+* Como uma pessoa pode organizar suas finanças mensais?
+* Crie um exemplo de orçamento doméstico para uma pessoa que deseja reduzir gastos.
+* Como os conceitos estudados podem ajudar uma pessoa a evitar o endividamento?
 
 ---
 
@@ -154,24 +165,24 @@ Durante a utilização do NotebookLM, algumas dificuldades foram encontradas.
 
 ### Resposta obtida
 
-A educação financeira foi definida como um meio de promover comportamentos que contribuem para melhorar o bem-estar financeiro e o exercício da cidadania financeira...
+A educação financeira foi definida como um meio de promover comportamentos que contribuem para melhorar o bem-estar financeiro e o exercício da cidadania financeira.
 
 A resposta também apresentou a educação financeira como uma combinação de:
 
-- Conscientização;
-- Conhecimento;
-- Habilidades;
-- Atitudes;
-- Comportamentos.
+* Conscientização;
+* Conhecimento;
+* Habilidades;
+* Atitudes;
+* Comportamentos.
 
 Além disso, foram destacados aspectos relacionados a:
 
-- Planejamento financeiro;
-- Consumo;
-- Poupança;
-- Investimentos;
-- Prevenção de riscos;
-- Proteção do patrimônio.
+* Planejamento financeiro;
+* Consumo;
+* Poupança;
+* Investimentos;
+* Prevenção de riscos;
+* Proteção do patrimônio.
 
 A resposta também indicou que decisões financeiras não dependem apenas de conhecimentos matemáticos, mas podem estar relacionadas ao comportamento, às emoções, aos impulsos e às escolhas de consumo.
 
@@ -205,11 +216,11 @@ O orçamento é uma ferramenta utilizada para organizar receitas e despesas.
 
 Ele permite:
 
-- Conhecer quanto dinheiro é recebido;
-- Identificar os principais gastos;
-- Reduzir desperdícios;
-- Planejar objetivos financeiros;
-- Tomar decisões mais conscientes.
+* Conhecer quanto dinheiro é recebido;
+* Identificar os principais gastos;
+* Reduzir desperdícios;
+* Planejar objetivos financeiros;
+* Tomar decisões mais conscientes.
 
 ---
 
@@ -219,10 +230,10 @@ O crédito permite utilizar recursos financeiros antes de possuir o dinheiro nec
 
 Pode ser útil em determinadas situações, mas exige atenção aos:
 
-- Juros;
-- Prazos;
-- Condições de pagamento;
-- Risco de endividamento.
+* Juros;
+* Prazos;
+* Condições de pagamento;
+* Risco de endividamento.
 
 ---
 
@@ -232,10 +243,10 @@ A poupança está relacionada à reserva de dinheiro para utilização futura.
 
 Os investimentos envolvem diferentes alternativas para aplicação de recursos, considerando fatores como:
 
-- Risco;
-- Rentabilidade;
-- Liquidez;
-- Prazo.
+* Risco;
+* Rentabilidade;
+* Liquidez;
+* Prazo.
 
 ---
 
@@ -257,16 +268,16 @@ A análise da OECD permite observar o tema também em uma perspectiva internacio
 
 ## 📘 Glossário
 
-| Conceito | Definição |
-|---|---|
-| Liquidez | Facilidade de converter um ativo em dinheiro |
-| Juros compostos | Juros calculados sobre o valor inicial e sobre os juros acumulados |
-| Endividamento | Situação relacionada ao acúmulo de compromissos financeiros e dívidas |
-| Inflação | Aumento generalizado dos preços |
-| Poder de compra | Quantidade de bens e serviços que determinada quantia de dinheiro consegue adquirir |
-| Crédito | Possibilidade de utilizar recursos financeiros antes de possuir o dinheiro correspondente |
-| Orçamento | Organização das receitas e despesas |
-| Investimento | Aplicação de recursos com objetivos financeiros futuros |
+| Conceito        | Definição                                                                                 |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| Liquidez        | Facilidade de converter um ativo em dinheiro                                              |
+| Juros compostos | Juros calculados sobre o valor inicial e sobre os juros acumulados                        |
+| Endividamento   | Situação relacionada ao acúmulo de compromissos financeiros e dívidas                     |
+| Inflação        | Aumento generalizado dos preços                                                           |
+| Poder de compra | Quantidade de bens e serviços que determinada quantia de dinheiro consegue adquirir       |
+| Crédito         | Possibilidade de utilizar recursos financeiros antes de possuir o dinheiro correspondente |
+| Orçamento       | Organização das receitas e despesas                                                       |
+| Investimento    | Aplicação de recursos com objetivos financeiros futuros                                   |
 
 ---
 
@@ -300,27 +311,274 @@ O desenvolvimento deste projeto demonstrou que a Inteligência Artificial pode a
 
 Entretanto, a qualidade dos resultados depende de fatores como:
 
-- Qualidade das fontes selecionadas;
-- Clareza dos objetivos;
-- Formulação das perguntas;
-- Estrutura dos prompts;
-- Verificação das referências;
-- Capacidade crítica do estudante.
+* Qualidade das fontes selecionadas;
+* Clareza dos objetivos;
+* Formulação das perguntas;
+* Estrutura dos prompts;
+* Verificação das referências;
+* Capacidade crítica do estudante.
 
 A principal conclusão do projeto é que a IA pode acelerar a organização da informação, mas o pensamento crítico continua sendo essencial para transformar informação em conhecimento.
 
 ---
 
-## 🚀 Tecnologias e Ferramentas
 
-- NotebookLM
-- Inteligência Artificial Generativa
-- GitHub
-- Markdown
+# 🎯 Desafio 2 — Extraindo Insights do Feedback de Clientes Bancários
+
+## 🎯 Contexto e Objetivo
+
+Este desafio tem como objetivo explorar o uso de Inteligência Artificial para analisar feedbacks de clientes sobre a experiência de uso de um aplicativo bancário.
+
+A proposta é construir e refinar um prompt capaz de transformar comentários de clientes em informações organizadas e úteis para apoiar decisões relacionadas à experiência do cliente e à melhoria do aplicativo.
 
 ---
 
-## 👤 Autor
+## 1. 🎯 Definição da Intenção
+
+### Tipo de feedback
+
+Feedbacks de clientes relacionados à experiência de uso de um aplicativo bancário, incluindo acesso à conta, navegação e utilização das funcionalidades disponíveis.
+
+### Usuários do resultado
+
+As informações serão utilizadas pelas equipes de experiência do cliente e desenvolvimento digital.
+
+### Decisões apoiadas
+
+O resultado deverá apoiar decisões relacionadas à melhoria da usabilidade, da experiência dos usuários e do funcionamento do aplicativo.
+
+### Formato esperado
+
+A entrega deverá conter:
+
+* Resumo executivo;
+* Principais temas identificados;
+* Classificação dos feedbacks;
+* Principais prioridades;
+* Recomendações de possíveis ações;
+* Limitações da análise.
+
+### Critério de qualidade
+
+O resultado será considerado adequado quando apresentar informações claras, organizadas, baseadas exclusivamente nos feedbacks fornecidos e úteis para identificar as principais prioridades de melhoria.
+
+---
+
+## 2. 🧩 Contexto e Restrições
+
+### Contexto
+
+Trabalho com a análise de feedbacks de clientes relacionados à experiência de uso de um aplicativo bancário, incluindo aspectos como acesso à conta, navegação e utilização das funcionalidades disponíveis.
+
+### Dados disponíveis
+
+* Data do feedback;
+* Texto do comentário;
+* Funcionalidade mencionada;
+* Nota de satisfação.
+
+Esses dados serão considerados conforme sua disponibilidade na base fornecida.
+
+### Critérios de análise
+
+A IA deve classificar os feedbacks por:
+
+* Tema;
+* Sentimento;
+* Nível de urgência;
+* Tipo de manifestação.
+
+O tipo de manifestação deverá indicar se o comentário representa:
+
+* Reclamação;
+* Elogio;
+* Sugestão;
+* Dúvida.
+
+### Cuidados e restrições
+
+* Use apenas os dados fornecidos para realizar a análise.
+* Não invente informações, números, causas ou conclusões.
+* Não exponha ou reproduza dados pessoais ou sensíveis dos clientes.
+* Caso existam informações pessoais nos comentários, ignore esses dados durante a análise.
+* Não apresente suposições como se fossem fatos.
+* Caso não existam informações suficientes para uma conclusão, informe essa limitação.
+* Considere tanto os feedbacks positivos quanto os negativos.
+* Use linguagem simples, clara e objetiva, voltada para a tomada de decisão.
+
+---
+
+## 3. 🛠️ Construção e Refinamento do Prompt
+
+O prompt foi estruturado utilizando os seguintes elementos:
+
+* Papel da IA;
+* Objetivo da análise;
+* Contexto;
+* Dados disponíveis;
+* Critérios de classificação;
+* Formato da resposta;
+* Restrições e cuidados.
+
+Durante o refinamento, foi identificada a necessidade de tornar o conceito de urgência mais objetivo.
+
+### Critérios de urgência adicionados
+
+**Baixa:** elogios, dúvidas simples ou sugestões sem impacto imediato na utilização do serviço.
+
+**Média:** problemas que dificultam determinada funcionalidade ou experiência, mas não impedem completamente sua utilização.
+
+**Alta:** problemas que impedem ou comprometem significativamente o acesso à conta, a realização de transações ou a utilização de funcionalidades essenciais.
+
+Também foi incluída uma orientação para diferenciar fatos, interpretações e recomendações.
+
+---
+
+## 4. 🧪 Teste do Prompt
+
+Para testar o funcionamento do prompt, foi utilizada uma base fictícia de feedbacks de clientes.
+
+| ID | Data       | Funcionalidade | Nota | Feedback                                                                                |
+| -- | ---------- | -------------- | ---: | --------------------------------------------------------------------------------------- |
+| 01 | 01/09/2026 | Login          |    2 | O aplicativo demora muito para abrir e algumas vezes não consigo acessar minha conta.   |
+| 02 | 01/09/2026 | Pix            |    1 | Tentei fazer um Pix várias vezes, mas o aplicativo apresentou erro.                     |
+| 03 | 02/09/2026 | Navegação      |    5 | Gostei da nova versão. Agora ficou muito mais fácil encontrar as opções que procuro.    |
+| 04 | 02/09/2026 | Cartão         |    3 | Seria interessante conseguir visualizar meus gastos do cartão de forma mais organizada. |
+| 05 | 02/09/2026 | Pix            |    2 | Fiz uma transferência e tive dificuldade para encontrar o comprovante.                  |
+| 06 | 02/09/2026 | Segurança      |    4 | Gostei da confirmação por biometria, ficou mais fácil e rápido acessar minha conta.     |
+
+### Resultado observado
+
+O teste permitiu identificar:
+
+* Problemas relacionados ao Pix;
+* Dificuldades de acesso e desempenho;
+* Problemas de localização de informações;
+* Sugestões relacionadas à organização dos gastos do cartão;
+* Avaliações positivas da navegação;
+* Avaliações positivas relacionadas à autenticação biométrica.
+
+### Aprendizado do teste
+
+O teste demonstrou que a estrutura do prompt permite organizar os feedbacks de acordo com diferentes critérios e transformar comentários individuais em informações mais estruturadas para análise.
+
+Também foi possível perceber que critérios subjetivos, como nível de urgência, precisam ser definidos explicitamente para reduzir interpretações diferentes pela IA.
+
+---
+
+## 5. 📌 Prompt Final Refinado
+
+### Papel
+
+Atue como um analista de experiência do cliente especializado em serviços bancários digitais.
+
+### Objetivo
+
+Analise os feedbacks fornecidos por clientes sobre a experiência de uso de um aplicativo bancário, com o objetivo de identificar os principais problemas, elogios, padrões recorrentes e oportunidades de melhoria relacionados ao acesso à conta, navegação e utilização das funcionalidades disponíveis.
+
+A análise será utilizada pelas equipes de experiência do cliente e desenvolvimento digital para apoiar decisões relacionadas à melhoria da experiência dos usuários e do aplicativo bancário.
+
+### Dados disponíveis
+
+A base poderá conter:
+
+* Data do feedback;
+* Texto do comentário;
+* Funcionalidade mencionada;
+* Nota de satisfação.
+
+Considere cada informação conforme sua disponibilidade na base fornecida. Não presuma a existência de dados que não estejam disponíveis.
+
+### Instruções de análise
+
+1. Classifique o tema principal, considerando, quando aplicável, categorias como login e acesso, navegação, Pix, cartão, segurança, desempenho ou outras funcionalidades.
+2. Classifique o sentimento como positivo, negativo ou neutro.
+3. Identifique o tipo de manifestação como reclamação, elogio, sugestão ou dúvida.
+4. Classifique o nível de urgência como baixo, médio ou alto, utilizando:
+
+   * Baixa: elogios, dúvidas simples ou sugestões que não indiquem impacto imediato na utilização do serviço.
+   * Média: problemas que dificultem determinada funcionalidade ou experiência, mas não impeçam completamente sua utilização.
+   * Alta: problemas que impeçam ou comprometam significativamente o acesso à conta, a realização de transações ou a utilização de funcionalidades essenciais.
+5. Identifique os principais problemas, elogios, padrões recorrentes e oportunidades de melhoria.
+6. Apresente evidências baseadas nos feedbacks fornecidos.
+7. Sugira ações práticas relacionadas aos problemas e oportunidades identificados.
+8. Diferencie claramente:
+
+   * Fato: informação diretamente observada nos feedbacks;
+   * Interpretação: entendimento possível a partir das evidências;
+   * Recomendação: ação sugerida com base na análise.
+9. Quando houver informações insuficientes para realizar uma classificação ou chegar a uma conclusão, indique explicitamente essa limitação.
+
+### Formato da resposta
+
+#### 1. Resumo executivo
+
+Síntese objetiva dos principais insights.
+
+#### 2. Tabela de análise
+
+| ID | Tema | Sentimento | Urgência | Tipo de manifestação | Evidência | Ação sugerida |
+| -- | ---- | ---------- | -------- | -------------------- | --------- | ------------- |
+
+#### 3. Principais insights
+
+Apresente os principais problemas, elogios, padrões recorrentes e oportunidades.
+
+#### 4. Principais prioridades
+
+Apresente até três prioridades, considerando relevância, impacto aparente e urgência.
+
+#### 5. Limitações da análise
+
+Informe limitações e conclusões que não podem ser obtidas com segurança.
+
+### Cuidados e restrições
+
+* Utilize exclusivamente os dados fornecidos.
+* Não invente informações, números, estatísticas, causas ou conclusões.
+* Não atribua causas técnicas aos problemas quando elas não estiverem explicitamente presentes nos feedbacks.
+* Não apresente suposições ou interpretações como fatos.
+* Não exponha, reproduza ou destaque dados pessoais ou sensíveis dos clientes.
+* Caso existam informações pessoais nos comentários, ignore essas informações durante a análise.
+* Considere tanto os feedbacks positivos quanto os negativos.
+* Não determine a frequência ou representatividade de um problema sem dados suficientes.
+* Caso a quantidade de feedbacks seja insuficiente para generalizar os resultados, informe essa limitação.
+* Use linguagem simples, clara, objetiva e voltada para tomada de decisão.
+
+---
+
+## 6. 🎓 Principais Aprendizados
+
+Este desafio demonstrou que um bom prompt não depende apenas de uma pergunta bem formulada.
+
+A qualidade da análise também depende da definição clara de:
+
+* Objetivo;
+* Contexto;
+* Dados disponíveis;
+* Critérios de classificação;
+* Formato da resposta;
+* Restrições;
+* Limitações.
+
+Outro aprendizado importante foi perceber que critérios subjetivos precisam ser definidos de maneira explícita. Neste caso, a definição dos níveis de urgência tornou a classificação mais consistente.
+
+O desafio também reforçou a importância de evitar que a IA transforme interpretações em fatos ou atribua causas que não estejam presentes nos dados.
+
+Por fim, o exercício mostrou como a engenharia de prompts pode ser utilizada para transformar dados textuais não estruturados em informações organizadas para apoiar processos de análise e tomada de decisão.
+
+---
+
+# 🚀 Tecnologias e Ferramentas
+
+* NotebookLM
+* Inteligência Artificial Generativa
+* GitHub
+* Markdown
+
+---
+
+# 👤 Autor
 
 **Cristiano Evangelista**
 
