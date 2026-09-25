@@ -573,405 +573,321 @@ Por fim, o exercício mostrou como a engenharia de prompts pode ser utilizada pa
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-# 📊 Desafio 3 — Detecção de Fraudes com Machine Learning
+📊 Desafio 3 — Detecção de Fraudes com Machine Learning
+📌 Sobre o projeto
 
-## 📌 Sobre o projeto
+Este desafio consiste na aplicação de técnicas de Machine Learning para identificar possíveis transações fraudulentas em um conjunto de dados de operações com cartão de crédito.
 
-Este projeto explora a utilização de técnicas de Machine Learning para identificar possíveis transações fraudulentas em uma base real de transações com cartão de crédito.
+O projeto foi desenvolvido com Python e bibliotecas voltadas para análise de dados, aprendizado de máquina e interpretação de modelos.
 
-O objetivo foi desenvolver um experimento completo, passando pelas etapas de:
+Foram utilizados dois modelos de classificação:
 
-* carregamento e exploração dos dados;
-* análise do desbalanceamento das classes;
-* preparação das variáveis;
-* criação de uma nova variável derivada;
-* divisão entre treino e teste;
-* treinamento de diferentes modelos;
-* avaliação por métricas apropriadas;
-* comparação entre modelos;
-* análise de diferentes limiares de classificação;
-* análise da importância das variáveis;
-* interpretação do modelo com SHAP;
-* documentação das limitações do experimento.
+Regressão Logística;
+Random Forest.
 
-O projeto foi desenvolvido com foco em aprendizagem prática e não representa, por si só, um sistema de detecção de fraudes pronto para produção.
+Além da comparação entre os modelos, também foram analisados diferentes limiares de classificação e técnicas de interpretação das variáveis utilizadas pelos modelos.
 
-O código-fonte e o notebook completo deste experimento estão disponíveis na pasta [`deteccao-fraudes`](deteccao-fraudes/).
+📚 Base de dados
 
----
+Foi utilizado um conjunto de dados público de transações com cartão de crédito.
 
-## 📚 Base de dados
+O conjunto possui:
 
-Foi utilizada uma base real de transações com cartão de crédito contendo:
+284.807 transações
+31 colunas
+492 transações fraudulentas
+284.315 transações normais
 
-* **284.807 transações**;
-* **31 colunas**;
-* variável `Class` como variável-alvo;
-* variáveis `V1` a `V28`;
-* variável `Time`;
-* variável `Amount`.
+A variável Class representa o resultado da transação:
 
-A variável `Class` representa:
+0 — transação normal
+1 — transação fraudulenta
 
-* `0` → transação normal;
-* `1` → fraude.
+As variáveis V1 a V28 são componentes resultantes de uma transformação PCA aplicada aos dados originais. Por esse motivo, elas não possuem interpretação direta de negócio.
 
-As variáveis `V1` a `V28` são componentes transformados por PCA para preservação de privacidade. Dessa forma, elas não possuem interpretação direta equivalente a atributos de negócio como "tipo de estabelecimento" ou "localização".
+⚠️ Desbalanceamento das classes
 
----
+O conjunto apresenta forte desbalanceamento entre as classes.
 
-## ⚠️ Desbalanceamento das classes
+A quantidade de transações normais é muito superior à quantidade de transações fraudulentas.
 
-A base apresenta forte desbalanceamento entre as classes.
+Por esse motivo, a avaliação dos modelos não foi baseada apenas na acurácia.
 
-| Classe       |  Quantidade | Representação |
-| :----------- | ----------: | ------------: |
-| Normal (`0`) |     284.315 |        99,83% |
-| Fraude (`1`) |         492 |         0,17% |
-| **Total**    | **284.807** |      **100%** |
+Foram consideradas principalmente:
 
-Esse desbalanceamento torna a acurácia uma métrica pouco informativa para avaliar isoladamente o desempenho do modelo.
+Precision
+Recall
+F1-score
+ROC AUC
+Average Precision
+Falsos positivos
+Falsos negativos
+🔧 Preparação dos dados
 
-Por exemplo, um modelo que classificasse praticamente todas as transações como normais poderia apresentar uma acurácia elevada mesmo deixando de identificar uma parcela significativa das fraudes.
+Foi criada uma nova variável denominada log_amount a partir da variável Amount.
 
-Por isso, foram analisadas principalmente métricas como:
+A transformação utilizada foi:
 
-* Precision;
-* Recall;
-* F1-score;
-* ROC AUC;
-* Average Precision;
-* Matriz de confusão.
+log_amount = np.log1p(df["Amount"])
 
----
+A variável original Amount foi mantida no conjunto de dados.
 
-## 🔧 Preparação dos dados
+Também foi realizada uma divisão estratificada dos dados em treinamento e teste, mantendo a proporção das classes.
 
-A variável `Class` foi utilizada como variável-alvo.
+📊 Divisão dos dados
 
-Também foi criada uma nova variável chamada `log_amount` a partir da variável `Amount`:
+Foi utilizada uma divisão de:
 
-```python
-df["log_amount"] = np.log1p(df["Amount"])
-```
+80% para treinamento
+20% para teste
 
-A variável original `Amount` foi mantida.
+A divisão foi realizada de forma estratificada para preservar a proporção entre transações normais e fraudulentas.
 
-### Transformação da variável `Amount`
+Conjunto de treinamento
+227.845 registros
+227.451 transações normais
+394 transações fraudulentas
+Conjunto de teste
+56.962 registros
+56.864 transações normais
+98 transações fraudulentas
+🧪 Amostra utilizada no treinamento
 
-A transformação logarítmica foi utilizada para comprimir a escala dos valores de `Amount`, especialmente para valores elevados.
+Devido às limitações de hardware disponíveis para a execução do experimento, foi utilizada uma amostra estratificada de 50.000 registros para o treinamento dos modelos.
 
-A transformação aplicada foi:
+Essa escolha permitiu realizar os experimentos mantendo uma proporção das classes compatível com o conjunto original.
 
-```python
-log_amount = log(1 + Amount)
-```
+Os resultados apresentados neste projeto estão relacionados a essa configuração experimental.
 
-A variável original não foi descartada, permitindo que os modelos tivessem acesso às duas representações.
+📏 Padronização das variáveis
 
----
+Foi utilizado o StandardScaler para padronizar as variáveis numéricas.
 
-## 📊 Divisão dos dados
+O scaler foi ajustado somente utilizando os dados de treinamento.
 
-Os dados foram divididos em conjuntos de treinamento e teste utilizando divisão estratificada.
+Depois disso, a transformação foi aplicada aos dados de teste.
 
-A proporção utilizada foi:
+Essa separação evita que informações do conjunto de teste sejam utilizadas durante o ajuste do processo de treinamento.
 
-* **80% para treinamento**;
-* **20% para teste**.
+📊 Regressão Logística
 
-A estratificação foi utilizada para preservar a proporção das classes nos dois conjuntos.
+Foi utilizado o modelo de Regressão Logística com tratamento do desbalanceamento das classes:
 
-### Resultado da divisão
+class_weight="balanced"
 
-| Conjunto    |   Total | Normais | Fraudes |
-| :---------- | ------: | ------: | ------: |
-| Treinamento | 227.845 | 227.451 |     394 |
-| Teste       |  56.962 |  56.864 |      98 |
+Também foram definidos:
 
----
+max_iter=300
+random_state=42
+Resultados
 
-## 🧪 Amostra utilizada no treinamento
+Precision: 0,0764
 
-Devido às limitações de hardware observadas durante os testes, foi utilizada uma amostra estratificada de **50.000 registros** para o treinamento dos modelos.
+Recall: 0,9082
 
-Essa decisão foi tomada para permitir a execução dos experimentos sem perda de estabilidade do ambiente.
+F1-score: 0,1409
 
-A amostra foi utilizada somente para o treinamento.
+ROC AUC: 0,9616
 
-O conjunto de teste permaneceu separado para avaliação dos modelos.
+Average Precision: 0,6945
 
-Essa limitação é importante porque os resultados apresentados representam o experimento realizado com essa configuração e não necessariamente o comportamento que seria obtido utilizando todos os registros disponíveis para treinamento.
+Matriz de confusão
+Verdadeiros negativos (TN): 55.788
+Falsos positivos (FP): 1.076
+Falsos negativos (FN): 9
+Verdadeiros positivos (TP): 89
 
----
+O modelo identificou 89 das 98 transações fraudulentas presentes no conjunto de teste, deixando 9 fraudes sem identificação.
 
-## 📏 Padronização das variáveis
+Ao mesmo tempo, foram classificadas incorretamente 1.076 transações normais como possíveis fraudes.
 
-Para a Regressão Logística, foi utilizado `StandardScaler`.
+Esse resultado demonstra um comportamento com Recall elevado e grande quantidade de falsos positivos.
 
-O scaler foi ajustado somente sobre os dados de treinamento e posteriormente aplicado aos dados de teste.
+📈 Curvas ROC e Precision-Recall
 
-Esse procedimento evita que informações estatísticas do conjunto de teste sejam utilizadas durante o treinamento.
+As curvas ROC e Precision-Recall foram utilizadas para complementar a avaliação do modelo.
 
-A padronização foi utilizada na Regressão Logística.
+Curva ROC
 
-O Random Forest foi treinado sem necessidade dessa etapa, pois o modelo baseado em árvores não depende da mesma escala das variáveis.
 
----
 
-# 📊 Regressão Logística
 
-A primeira abordagem utilizou Regressão Logística com tratamento do desbalanceamento por meio de `class_weight="balanced"`.
+Curva Precision-Recall
 
-Configuração principal:
 
-```python
-LogisticRegression(
-    class_weight="balanced",
-    max_iter=300,
-    random_state=42
-)
-```
 
-## Resultado para a classe fraude
 
-| Métrica           | Resultado |
-| :---------------- | --------: |
-| Precision         |    0,0764 |
-| Recall            |    0,9082 |
-| F1-score          |    0,1409 |
-| ROC AUC           |    0,9616 |
-| Average Precision |    0,6945 |
+🌲 Random Forest
 
-O modelo identificou **89 das 98 fraudes** presentes no conjunto de teste.
+Também foi utilizado o algoritmo Random Forest.
 
-Por outro lado, apresentou uma quantidade elevada de falsos positivos.
+A configuração principal utilizada foi:
 
-### Matriz de confusão
+n_estimators=100
+class_weight="balanced"
+random_state=42
+n_jobs=-1
+Resultados
 
-| Classe real | Predito normal | Predito fraude |
-| :---------- | -------------: | -------------: |
-| Normal      |         55.788 |          1.076 |
-| Fraude      |              9 |             89 |
+Precision: 0,8261
 
-Assim:
+Recall: 0,7755
 
-| Indicador                  | Quantidade |
-| :------------------------- | ---------: |
-| Verdadeiros negativos (TN) |     55.788 |
-| Falsos positivos (FP)      |      1.076 |
-| Falsos negativos (FN)      |          9 |
-| Verdadeiros positivos (TP) |         89 |
+F1-score: 0,8000
 
-O resultado demonstra um modelo com recall elevado para a classe fraude, mas com baixa precisão e grande quantidade de falsos positivos.
+ROC AUC: 0,9571
 
----
+Average Precision: 0,8191
 
-## 📈 Curvas ROC e Precision-Recall
+Matriz de confusão
+Verdadeiros negativos (TN): 56.848
+Falsos positivos (FP): 16
+Falsos negativos (FN): 22
+Verdadeiros positivos (TP): 76
 
-Foram utilizadas as curvas ROC e Precision-Recall para complementar a avaliação do modelo.
+O modelo identificou 76 das 98 transações fraudulentas presentes no conjunto de teste.
 
-A curva ROC permite observar a relação entre a taxa de verdadeiros positivos e a taxa de falsos positivos em diferentes limiares.
+Foram registrados:
 
-A curva Precision-Recall é especialmente relevante em problemas com classes muito desbalanceadas, pois permite observar diretamente o comportamento da precisão e do recall para a classe de interesse.
+16 falsos positivos
+22 falsos negativos
 
-### Curva ROC
+Nesse experimento, o Random Forest apresentou uma quantidade muito menor de falsos positivos em comparação com a Regressão Logística, enquanto apresentou Recall inferior.
 
-![Curva ROC](deteccao-fraudes/curva_roc.png)
+🔎 Comparação entre os modelos
 
-### Curva Precision-Recall
+Os modelos apresentaram comportamentos diferentes diante do problema de detecção de fraudes.
 
-![Curva Precision-Recall](deteccao-fraudes/curva_precision_recall.png)
+Regressão Logística
+Precision: 0,0764
+Recall: 0,9082
+F1-score: 0,1409
+ROC AUC: 0,9616
+Average Precision: 0,6945
+Falsos positivos: 1.076
+Falsos negativos: 9
+Random Forest
+Precision: 0,8261
+Recall: 0,7755
+F1-score: 0,8000
+ROC AUC: 0,9571
+Average Precision: 0,8191
+Falsos positivos: 16
+Falsos negativos: 22
 
----
+A Regressão Logística apresentou Recall mais elevado, enquanto o Random Forest apresentou quantidade muito menor de falsos positivos no experimento realizado.
 
-# 🌲 Random Forest
+Essa diferença demonstra a importância de analisar diferentes métricas e tipos de erro em problemas de classificação de fraudes.
 
-A segunda abordagem utilizou o algoritmo Random Forest.
+🎚️ Ajuste do limiar de classificação
 
-Configuração principal:
+Além da avaliação utilizando o limiar padrão de 0,50, foram realizados experimentos com diferentes valores de limiar no Random Forest.
 
-```python
-RandomForestClassifier(
-    n_estimators=100,
-    class_weight="balanced",
-    random_state=42,
-    n_jobs=-1
-)
-```
+Limiar 0,10
+Precision: 0,5658
+Recall: 0,8776
+F1-score: 0,6880
+Falsos positivos: 66
+Falsos negativos: 12
+Limiar 0,20
+Precision: 0,7568
+Recall: 0,8571
+F1-score: 0,8038
+Falsos positivos: 27
+Falsos negativos: 14
+Limiar 0,30
+Precision: 0,8283
+Recall: 0,8367
+F1-score: 0,8325
+Falsos positivos: 17
+Falsos negativos: 16
+Limiar 0,40
+Precision: 0,8229
+Recall: 0,8061
+F1-score: 0,8144
+Falsos positivos: 17
+Falsos negativos: 19
+Limiar 0,50
+Precision: 0,8261
+Recall: 0,7755
+F1-score: 0,8000
+Falsos positivos: 16
+Falsos negativos: 22
+Limiar 0,60
+Precision: 0,8434
+Recall: 0,7143
+F1-score: 0,7735
+Falsos positivos: 13
+Falsos negativos: 28
+Limiar 0,70
+Precision: 0,8571
+Recall: 0,6735
+F1-score: 0,7543
+Falsos positivos: 11
+Falsos negativos: 32
+Limiar 0,80
+Precision: 0,8806
+Recall: 0,6020
+F1-score: 0,7152
+Falsos positivos: 8
+Falsos negativos: 39
+Limiar 0,90
+Precision: 0,9600
+Recall: 0,4898
+F1-score: 0,6486
+Falsos positivos: 2
+Falsos negativos: 50
+🔎 Análise do limiar 0,30
 
-O modelo também utilizou `class_weight="balanced"` para considerar o desbalanceamento entre as classes.
+No experimento realizado, o limiar de 0,30 apresentou:
 
-## Resultado para a classe fraude
+Precision: 0,8283
+Recall: 0,8367
+F1-score: 0,8325
+Falsos positivos: 17
+Falsos negativos: 16
 
-| Métrica           | Resultado |
-| :---------------- | --------: |
-| Precision         |    0,8261 |
-| Recall            |    0,7755 |
-| F1-score          |    0,8000 |
-| ROC AUC           |    0,9571 |
-| Average Precision |    0,8191 |
+Esse resultado demonstra como a alteração do limiar modifica o equilíbrio entre Precision, Recall, falsos positivos e falsos negativos.
 
-O modelo identificou **76 das 98 fraudes** presentes no conjunto de teste.
+O valor de 0,30 foi utilizado como uma configuração de análise neste projeto.
 
-### Matriz de confusão
+Ele não deve ser interpretado como um valor universal ou como uma configuração definitiva para utilização em produção.
 
-| Classe real | Predito normal | Predito fraude |
-| :---------- | -------------: | -------------: |
-| Normal      |         56.848 |             16 |
-| Fraude      |             22 |             76 |
+Em um ambiente real, a escolha do limiar dependeria dos custos associados aos falsos positivos e falsos negativos, do volume de alertas e das regras operacionais do sistema.
 
-Assim:
+Visualização dos resultados
 
-| Indicador                  | Quantidade |
-| :------------------------- | ---------: |
-| Verdadeiros negativos (TN) |     56.848 |
-| Falsos positivos (FP)      |         16 |
-| Falsos negativos (FN)      |         22 |
-| Verdadeiros positivos (TP) |         76 |
 
-No limiar padrão de `0,50`, o modelo apresentou 16 falsos positivos e 22 falsos negativos.
 
----
 
-# 🔎 Comparação entre os modelos
 
-Os modelos apresentaram comportamentos diferentes.
 
-### Métricas principais
 
-| Modelo              | Precision | Recall | F1-score |
-| :------------------ | --------: | -----: | -------: |
-| Regressão Logística |    0,0764 | 0,9082 |   0,1409 |
-| Random Forest       |    0,8261 | 0,7755 |   0,8000 |
+🧠 Importância das variáveis — Random Forest
 
-### Métricas complementares
-
-| Modelo              | ROC AUC | Average Precision |
-| :------------------ | ------: | ----------------: |
-| Regressão Logística |  0,9616 |            0,6945 |
-| Random Forest       |  0,9571 |            0,8191 |
-
-### Comparação dos erros
-
-| Modelo              | TP |    FP | FN |
-| :------------------ | -: | ----: | -: |
-| Regressão Logística | 89 | 1.076 |  9 |
-| Random Forest       | 76 |    16 | 22 |
-
-A Regressão Logística apresentou recall maior, identificando 89 das 98 fraudes, porém classificou uma quantidade muito maior de transações normais como suspeitas.
-
-O Random Forest apresentou menor recall no limiar padrão, identificando 76 das 98 fraudes, mas apresentou uma quantidade muito menor de falsos positivos.
-
-Essa comparação mostra que a escolha do modelo depende do objetivo da aplicação e do custo associado aos diferentes tipos de erro.
-
-Os resultados não devem ser interpretados isoladamente por uma única métrica.
-
----
-
-# 🎚️ Ajuste do limiar de classificação
-
-Além da comparação entre os modelos, foi analisado o comportamento do Random Forest em diferentes limiares de classificação.
-
-O objetivo foi observar como alterações no threshold modificam:
-
-* Precision;
-* Recall;
-* F1-score;
-* Falsos positivos;
-* Falsos negativos.
-
-### Métricas por threshold
-
-| Threshold | Precision | Recall | F1-score |
-| --------: | --------: | -----: | -------: |
-|      0,10 |    0,5658 | 0,8776 |   0,6880 |
-|      0,20 |    0,7568 | 0,8571 |   0,8038 |
-|      0,30 |    0,8283 | 0,8367 |   0,8325 |
-|      0,40 |    0,8229 | 0,8061 |   0,8144 |
-|      0,50 |    0,8261 | 0,7755 |   0,8000 |
-|      0,60 |    0,8434 | 0,7143 |   0,7735 |
-|      0,70 |    0,8571 | 0,6735 |   0,7543 |
-|      0,80 |    0,8806 | 0,6020 |   0,7152 |
-|      0,90 |    0,9600 | 0,4898 |   0,6486 |
-
-### Erros por threshold
-
-| Threshold | Falsos positivos (FP) | Falsos negativos (FN) |
-| --------: | --------------------: | --------------------: |
-|      0,10 |                    66 |                    12 |
-|      0,20 |                    27 |                    14 |
-|      0,30 |                    17 |                    16 |
-|      0,40 |                    17 |                    19 |
-|      0,50 |                    16 |                    22 |
-|      0,60 |                    13 |                    28 |
-|      0,70 |                    11 |                    32 |
-|      0,80 |                     8 |                    39 |
-|      0,90 |                     2 |                    50 |
-
-### Análise do threshold 0,30
-
-Para este experimento, o threshold `0,30` foi utilizado na análise final porque permite observar uma configuração intermediária entre os diferentes tipos de erro.
-
-Nesse ponto foram obtidos:
-
-* **Precision:** 0,8283;
-* **Recall:** 0,8367;
-* **F1-score:** 0,8325;
-* **FP:** 17;
-* **FN:** 16.
-
-Esse resultado deve ser interpretado como parte do experimento realizado.
-
-Em uma aplicação real, o threshold precisaria ser definido considerando fatores como:
-
-* custo de falsos positivos;
-* custo de falsos negativos;
-* quantidade de alertas gerados;
-* capacidade de análise manual;
-* impacto para os clientes;
-* regras operacionais do sistema.
-
-Portanto, o valor `0,30` não deve ser considerado uma configuração universal para sistemas de detecção de fraude.
-
-### Precision, Recall e F1 por threshold
-
-![Precision, Recall e F1 por threshold](deteccao-fraudes/precision_recall_threshold_random_forest.png)
-
-### Erros por threshold
-
-![Erros por threshold](deteccao-fraudes/erros_threshold_random_forest.png)
-
----
-
-# 🧠 Importância das variáveis — Random Forest
-
-Foi analisada a importância das variáveis utilizada pelo Random Forest.
+Foi analisada a importância das variáveis utilizadas pelo Random Forest.
 
 As dez variáveis com maior importância foram:
 
-| Posição | Variável | Importância |
-| ------: | :------- | ----------: |
-|       1 | V14      |    0,190810 |
-|       2 | V10      |    0,152877 |
-|       3 | V11      |    0,110281 |
-|       4 | V12      |    0,085792 |
-|       5 | V4       |    0,073071 |
-|       6 | V17      |    0,071463 |
-|       7 | V3       |    0,045616 |
-|       8 | V2       |    0,029481 |
-|       9 | V7       |    0,029128 |
-|      10 | V16      |    0,023570 |
+V14 — 0,190810
+V10 — 0,152877
+V11 — 0,110281
+V12 — 0,085792
+V4 — 0,073071
+V17 — 0,071463
+V3 — 0,045616
+V2 — 0,029481
+V7 — 0,029128
+V16 — 0,023570
 
-### Visualização
+Esses valores representam a importância atribuída pelo modelo às variáveis utilizadas nas decisões das árvores.
 
-![Importância das variáveis](deteccao-fraudes/importancia_variaveis_random_forest.png)
+Como as variáveis V1 a V28 são componentes resultantes de PCA, esses resultados não devem ser interpretados diretamente como características de negócio.
 
-É importante destacar que essas variáveis são componentes transformados por PCA.
+Visualização
 
-Portanto, a importância apresentada representa a contribuição dessas variáveis para o comportamento do modelo, mas não permite afirmar diretamente que uma determinada característica de negócio causa uma fraude.
 
----
+
 
 🔬 Interpretação do modelo com SHAP
 
@@ -981,19 +897,18 @@ Foi realizada uma análise utilizando uma amostra aleatória de 1.000 registros 
 
 A métrica utilizada para ordenar as variáveis foi o valor médio absoluto de SHAP.
 
-Os dez maiores valores observados foram:
+As dez maiores contribuições em magnitude foram:
 
-1. V14 — 0,070266
-2. V12 — 0,067754
-3. V11 — 0,054054
-4. V10 — 0,051748
-5. V4 — 0,050359
-6. V3 — 0,038146
-7. V17 — 0,029625
-8. V9 — 0,020391
-9. V7 — 0,015777
-10. V2 — 0,014759
-
+V14 — 0,070266
+V12 — 0,067754
+V11 — 0,054054
+V10 — 0,051748
+V4 — 0,050359
+V3 — 0,038146
+V17 — 0,029625
+V9 — 0,020391
+V7 — 0,015777
+V2 — 0,014759
 Comparação entre Random Forest e SHAP
 
 Foi observado que várias das variáveis com maior importância no Random Forest também aparecem entre as variáveis com maiores valores médios absolutos de SHAP.
@@ -1010,13 +925,13 @@ V17
 
 Essa sobreposição fornece uma visão complementar do comportamento do modelo.
 
-Entretanto, o valor médio absoluto de SHAP representa a magnitude da contribuição da variável para as previsões analisadas. Ele não indica, isoladamente, se a variável aumenta ou diminui a probabilidade prevista de fraude.
+Entretanto, o valor médio absoluto de SHAP representa a magnitude da contribuição da variável para as previsões analisadas.
+
+Ele não indica, isoladamente, se a variável aumenta ou diminui a probabilidade prevista de fraude.
 
 Além disso, a importância de uma variável não deve ser interpretada como causalidade.
 
-📈 Visualização SHAP
-
-A visualização abaixo apresenta a importância das variáveis segundo os valores médios absolutos de SHAP.
+Visualização SHAP
 
 
 
@@ -1031,7 +946,7 @@ inclusão da transformação log_amount para a variável Amount;
 utilização de divisão estratificada entre treinamento e teste;
 utilização de uma amostra de 50.000 registros para o treinamento devido às limitações de hardware;
 comparação entre Regressão Logística e Random Forest;
-análise de Precision, Recall, F1, ROC AUC e Average Precision;
+análise de Precision, Recall, F1-score, ROC AUC e Average Precision;
 análise das matrizes de confusão;
 avaliação das curvas ROC e Precision-Recall;
 análise de diferentes limiares de classificação;
@@ -1057,37 +972,39 @@ O projeto demonstrou a aplicação de técnicas de Machine Learning para a detec
 
 A utilização de dois modelos permitiu observar diferentes comportamentos.
 
-A Regressão Logística apresentou maior Recall, identificando uma parcela maior das fraudes, mas também produziu uma quantidade significativamente maior de falsos positivos.
+A Regressão Logística apresentou Recall mais elevado, identificando uma parcela maior das fraudes, mas também produziu uma quantidade significativamente maior de falsos positivos.
 
-O Random Forest, por outro lado, apresentou uma quantidade muito menor de falsos positivos no experimento realizado, enquanto manteve um nível de Recall inferior ao da Regressão Logística.
+O Random Forest apresentou uma quantidade muito menor de falsos positivos no experimento realizado, enquanto apresentou Recall inferior ao da Regressão Logística.
 
 A análise de diferentes limiares mostrou que a alteração do ponto de decisão modifica o equilíbrio entre Precision, Recall, falsos positivos e falsos negativos.
 
 O uso do SHAP também permitiu complementar a análise da importância das variáveis, ajudando a compreender quais componentes tiveram maior influência nas previsões do modelo.
 
-Dessa forma, o projeto demonstra que a avaliação de um sistema de detecção de fraudes não deve considerar apenas uma única métrica. É necessário analisar o comportamento dos modelos, os tipos de erro e o impacto da escolha do limiar de classificação.
+Dessa forma, o projeto demonstra que a avaliação de um sistema de detecção de fraudes não deve considerar apenas uma única métrica.
+
+É necessário analisar o comportamento dos modelos, os tipos de erro e o impacto da escolha do limiar de classificação.
 
 📁 Arquivos e resultados
 
-Os principais arquivos utilizados no projeto estão disponíveis nesta pasta:
+Os principais arquivos utilizados no projeto estão disponíveis na pasta:
 
 deteccao-fraudes/
 
-Entre eles:
-
-projeto.py — código principal do projeto;
-projeto.ipynb — versão do projeto em Jupyter Notebook;
-comparacao_modelos.csv — comparação dos modelos;
-resultados_threshold.csv — resultados dos diferentes limiares;
-resultados_threshold_random_forest.csv — resultados dos limiares do Random Forest;
-importancia_variaveis_random_forest.csv — importância das variáveis;
-importancia_shap.csv — resultados da análise SHAP;
-curva_roc.png — curva ROC;
-curva_precision_recall.png — curva Precision-Recall;
-precision_recall_threshold_random_forest.png — relação entre Precision e Recall conforme o limiar;
-erros_threshold_random_forest.png — comportamento dos erros conforme o limiar;
-importancia_variaveis_random_forest.png — importância das variáveis no Random Forest;
-shap_importancia.png — importância das variáveis segundo SHAP.
+Arquivos principais
+projeto.py — código principal do projeto
+projeto.ipynb — versão do projeto em Jupyter Notebook
+comparacao_modelos.csv — comparação dos modelos
+resultados_threshold.csv — resultados dos diferentes limiares
+resultados_threshold_random_forest.csv — resultados dos limiares do Random Forest
+importancia_variaveis_random_forest.csv — importância das variáveis
+importancia_shap.csv — resultados da análise SHAP
+Visualizações
+curva_roc.png — curva ROC
+curva_precision_recall.png — curva Precision-Recall
+precision_recall_threshold_random_forest.png — relação entre Precision e Recall conforme o limiar
+erros_threshold_random_forest.png — comportamento dos erros conforme o limiar
+importancia_variaveis_random_forest.png — importância das variáveis no Random Forest
+shap_importancia.png — importância das variáveis segundo SHAP
 
 O arquivo creditcard.csv não foi incluído no repositório.
 
