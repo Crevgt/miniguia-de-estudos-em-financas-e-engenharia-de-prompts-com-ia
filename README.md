@@ -969,15 +969,15 @@ Durante o desenvolvimento do projeto, a abordagem foi ampliada para tornar a an�
 
 Foram acrescentados:
 
-comparação entre Regressão Logística e Random Forest;
-métricas específicas para a classe fraude;
-matriz de confusão;
-curvas ROC e Precision-Recall;
-análise de diferentes thresholds;
-análise dos falsos positivos e falsos negativos;
-análise da importância das variáveis;
-interpretação complementar utilizando SHAP;
-documentação das limitações do experimento.
+- comparação entre Regressão Logística e Random Forest
+- métricas específicas para a classe fraude
+- matriz de confusão
+- curvas ROC e Precision-Recall
+- análise de diferentes thresholds
+- análise dos falsos positivos e falsos negativos
+- análise da importância das variáveis
+- interpretação complementar utilizando SHAP
+- documentação das limitações do experimento
 
 A análise também passou a considerar que não existe necessariamente um único resultado adequado para todos os cenários.
 
