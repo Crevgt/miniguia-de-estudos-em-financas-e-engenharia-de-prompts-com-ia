@@ -983,166 +983,124 @@ A métrica utilizada para ordenar as variáveis foi o valor médio absoluto de S
 
 Os dez maiores valores observados foram:
 
-Posição	Variável	Mean Absolute SHAP
-1	V14	0,070266
-2	V12	0,067754
-3	V11	0,054054
-4	V10	0,051748
-5	V4	0,050359
-6	V3	0,038146
-7	V17	0,029625
-8	V9	0,020391
-9	V7	0,015777
-10	V2	0,014759
+1. V14 — 0,070266
+2. V12 — 0,067754
+3. V11 — 0,054054
+4. V10 — 0,051748
+5. V4 — 0,050359
+6. V3 — 0,038146
+7. V17 — 0,029625
+8. V9 — 0,020391
+9. V7 — 0,015777
+10. V2 — 0,014759
+
 Comparação entre Random Forest e SHAP
 
 Foi observado que várias das variáveis com maior importância no Random Forest também aparecem entre as variáveis com maiores valores médios absolutos de SHAP.
 
 Entre elas:
 
-V14;
-V12;
-V11;
-V10;
-V4;
-V3;
-V17.
+V14
+V12
+V11
+V10
+V4
+V3
+V17
 
 Essa sobreposição fornece uma visão complementar do comportamento do modelo.
 
 Entretanto, o valor médio absoluto de SHAP representa a magnitude da contribuição da variável para as previsões analisadas. Ele não indica, isoladamente, se a variável aumenta ou diminui a probabilidade prevista de fraude.
 
-Além disso, importância de variável não deve ser interpretada como causalidade.
+Além disso, a importância de uma variável não deve ser interpretada como causalidade.
 
-Visualização SHAP
+📈 Visualização SHAP
+
+A visualização abaixo apresenta a importância das variáveis segundo os valores médios absolutos de SHAP.
+
+
+
 
 🔄 O que foi alterado em relação à abordagem da Expert
 
-Durante o desenvolvimento do projeto, a abordagem foi ampliada para tornar a análise mais completa.
+A abordagem inicial foi ampliada para incluir uma análise mais detalhada do comportamento dos modelos.
 
-Foram acrescentados:
+Foram realizadas as seguintes alterações:
 
+inclusão da transformação log_amount para a variável Amount;
+utilização de divisão estratificada entre treinamento e teste;
+utilização de uma amostra de 50.000 registros para o treinamento devido às limitações de hardware;
 comparação entre Regressão Logística e Random Forest;
-métricas específicas para a classe fraude;
-matriz de confusão;
-curvas ROC e Precision-Recall;
-análise de diferentes thresholds;
-análise dos falsos positivos e falsos negativos;
-análise da importância das variáveis;
-interpretação complementar utilizando SHAP;
-documentação das limitações do experimento.
-
-A análise também passou a considerar que não existe necessariamente um único resultado adequado para todos os cenários.
-
-Em problemas de detecção de fraude, diferentes configurações podem priorizar diferentes objetivos, e a definição do threshold depende dos custos e consequências associados aos erros de classificação.
-
+análise de Precision, Recall, F1, ROC AUC e Average Precision;
+análise das matrizes de confusão;
+avaliação das curvas ROC e Precision-Recall;
+análise de diferentes limiares de classificação;
+análise das variáveis mais importantes no Random Forest;
+utilização do SHAP para complementar a interpretação do modelo;
+análise conjunta dos resultados para compreender os diferentes comportamentos dos modelos.
 ⚠️ Limitações do experimento
 
-Este projeto possui algumas limitações importantes.
+Os resultados apresentados devem ser interpretados considerando algumas limitações:
 
-1. Amostra de treinamento
-
-Por limitações de hardware, foi utilizada uma amostra de 50.000 registros para o treinamento, em vez de utilizar todos os registros disponíveis no conjunto de treinamento.
-
-2. Dataset específico
-
-Os resultados dependem da base de dados utilizada, da divisão entre treinamento e teste e da configuração dos modelos.
-
-3. Variáveis transformadas
-
-As variáveis V1 a V28 são componentes transformados por PCA e não possuem interpretação direta de negócio.
-
-4. Threshold
-
-A análise dos thresholds foi realizada sobre este experimento específico.
-
-O threshold definido não deve ser considerado automaticamente adequado para um ambiente de produção.
-
-5. Generalização
-
-Os resultados obtidos no conjunto de teste não garantem o mesmo comportamento em períodos futuros ou em outras bases de dados.
-
-6. SHAP
-
-A análise SHAP ajuda a interpretar o comportamento do modelo, mas não estabelece relações causais.
-
-7. Ambiente de produção
-
-Um sistema real de detecção de fraude exigiria outras etapas, como:
-
-monitoramento contínuo;
-atualização do modelo;
-análise de mudança de comportamento dos dados;
-avaliação de custo dos erros;
-controle da quantidade de alertas;
-validação com dados futuros;
-definição de processos para análise dos casos sinalizados.
+o treinamento foi realizado utilizando uma amostra de 50.000 registros, devido às limitações de hardware;
+os resultados dependem da divisão específica entre treinamento e teste utilizada no experimento;
+o conjunto de dados utilizado possui forte desbalanceamento entre as classes;
+as variáveis V1 a V28 são componentes resultantes de transformação PCA e não possuem interpretação direta de negócio;
+a escolha do limiar de classificação pode alterar significativamente Precision, Recall, falsos positivos e falsos negativos;
+o limiar analisado neste projeto não deve ser considerado uma configuração de produção;
+dados históricos podem não representar comportamentos futuros;
+a análise SHAP descreve o comportamento do modelo, mas não estabelece relações de causalidade;
+em um ambiente real, seria necessário considerar custos de falsos positivos e falsos negativos, volume de alertas, análise manual, atualização do modelo e mudanças no comportamento das transações.
 📊 Conclusão
 
-O experimento demonstrou, de forma prática, como técnicas de Machine Learning podem ser aplicadas a um problema de classificação altamente desbalanceado.
+O projeto demonstrou a aplicação de técnicas de Machine Learning para a detecção de possíveis transações fraudulentas em um conjunto de dados desbalanceado.
 
-A comparação entre os modelos mostrou comportamentos diferentes.
+A utilização de dois modelos permitiu observar diferentes comportamentos.
 
-A Regressão Logística apresentou alto recall para a classe fraude, mas também gerou uma quantidade elevada de falsos positivos.
+A Regressão Logística apresentou maior Recall, identificando uma parcela maior das fraudes, mas também produziu uma quantidade significativamente maior de falsos positivos.
 
-O Random Forest apresentou uma quantidade muito menor de falsos positivos no threshold padrão, enquanto manteve capacidade relevante de identificação de fraudes.
+O Random Forest, por outro lado, apresentou uma quantidade muito menor de falsos positivos no experimento realizado, enquanto manteve um nível de Recall inferior ao da Regressão Logística.
 
-A análise de diferentes thresholds mostrou ainda que o comportamento do modelo pode mudar significativamente conforme o limiar de classificação.
+A análise de diferentes limiares mostrou que a alteração do ponto de decisão modifica o equilíbrio entre Precision, Recall, falsos positivos e falsos negativos.
 
-A utilização de importância de variáveis e SHAP acrescentou uma etapa de interpretação ao projeto, permitindo observar quais variáveis mais contribuíram para as previsões do modelo.
+O uso do SHAP também permitiu complementar a análise da importância das variáveis, ajudando a compreender quais componentes tiveram maior influência nas previsões do modelo.
 
-O principal aprendizado do projeto foi perceber que desenvolver um modelo de Machine Learning não significa apenas treinar o algoritmo e observar uma métrica.
+Dessa forma, o projeto demonstra que a avaliação de um sistema de detecção de fraudes não deve considerar apenas uma única métrica. É necessário analisar o comportamento dos modelos, os tipos de erro e o impacto da escolha do limiar de classificação.
 
-Também é necessário:
-
-compreender os dados;
-analisar o desbalanceamento;
-escolher métricas adequadas;
-avaliar diferentes tipos de erro;
-comparar abordagens;
-analisar diferentes thresholds;
-interpretar o comportamento do modelo;
-documentar limitações;
-evitar conclusões além do que os dados permitem afirmar.
 📁 Arquivos e resultados
 
-Os arquivos utilizados no projeto estão disponíveis na pasta deteccao-fraudes.
+Os principais arquivos utilizados no projeto estão disponíveis nesta pasta:
 
-Código e notebook
-Notebook do projeto
-Código Python
-Resultados
-Comparação dos modelos
-Resultados dos thresholds — Random Forest
-Resultados dos thresholds — versão complementar
-Importância das variáveis — Random Forest
-Importância das variáveis — SHAP
-Visualizações
-Curva ROC
-Curva Precision-Recall
-Importância das variáveis — Random Forest
-Importância SHAP
-Precision, Recall e F1 por threshold
-Erros por threshold
+deteccao-fraudes/
 
-O arquivo original creditcard.csv não foi incluído no repositório. O notebook realiza o carregamento da base utilizada no experimento separadamente.
+Entre eles:
+
+projeto.py — código principal do projeto;
+projeto.ipynb — versão do projeto em Jupyter Notebook;
+comparacao_modelos.csv — comparação dos modelos;
+resultados_threshold.csv — resultados dos diferentes limiares;
+resultados_threshold_random_forest.csv — resultados dos limiares do Random Forest;
+importancia_variaveis_random_forest.csv — importância das variáveis;
+importancia_shap.csv — resultados da análise SHAP;
+curva_roc.png — curva ROC;
+curva_precision_recall.png — curva Precision-Recall;
+precision_recall_threshold_random_forest.png — relação entre Precision e Recall conforme o limiar;
+erros_threshold_random_forest.png — comportamento dos erros conforme o limiar;
+importancia_variaveis_random_forest.png — importância das variáveis no Random Forest;
+shap_importancia.png — importância das variáveis segundo SHAP.
+
+O arquivo creditcard.csv não foi incluído no repositório.
 
 ▶️ Execução
 
-Para executar o projeto localmente, é necessário possuir Python instalado e as bibliotecas utilizadas no experimento.
+Para executar o projeto, é necessário ter o Python instalado e as bibliotecas utilizadas no projeto disponíveis no ambiente.
 
-Principais bibliotecas:
+O projeto pode ser executado diretamente pelo arquivo:
 
-pandas
-numpy
-scikit-learn
-matplotlib
-shap
+projeto.py
 
-O código principal está disponível em:
+Também é possível utilizar a versão:
 
-deteccao-fraudes/projeto.py
+projeto.ipynb
 
-O notebook com a execução documentada está disponível em:
-
-deteccao-fraudes/projeto.ipynb
+A versão em Notebook permite acompanhar as etapas do processamento, treinamento, avaliação e interpretação dos modelos de forma interativa.
