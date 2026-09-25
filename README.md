@@ -1,6 +1,6 @@
-# 📚 Miniguia de Estudos e Engenharia de Prompts com IA
+# 📚 Miniguia de Estudos, Engenharia de Prompts com IA e Análise de Dados com Machine Learning
 
-Este repositório reúne atividades práticas de aprendizagem ativa com Inteligência Artificial, utilizando ferramentas como NotebookLM, engenharia de prompts e análise estruturada de informações.
+Este repositório reúne atividades práticas de aprendizagem ativa com Inteligência Artificial, engenharia de prompts e análise de dados com Machine Learning, utilizando ferramentas e técnicas para explorar, analisar e documentar diferentes desafios de aprendizagem.
 
 O projeto está dividido em três desafios práticos:
 
